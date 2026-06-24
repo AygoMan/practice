@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Контакты | Школа 21</title>
+<style>
+:root {
+  --font-main: "SBSansDisplay", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --accent-color: #00db00;
+  --accent-color-opacity-10: rgba(0,219,0,0.1);
+  --dark-color: #1d2633;
+  --white-color: #ffffff;
+  --light-gray-color: #c6cfda;
+  --light-gray-bg: #f4f4f9;
+  --text-color: var(--dark-color);
+  --htag-dark-color: #212121;
+}
+*, *:after, *:before { padding: 0; margin: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  min-width: 320px; min-height: 100vh;
+  font-size: 16px; line-height: 1.6; font-family: var(--font-main);
+  color: var(--text-color); background-color: var(--white-color);
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; transition: .3s; }
+ul { list-style: none; }
+.container {
+  padding: 0 clamp(16px, min(102/1920 * 100vw, 102px), 102px);
+  max-width: 1440px; margin: 0 auto;
+}
+.Htag_h1 {
+  font-size: clamp(32px, min(60/1920 * 100vw, 60px), 60px);
+  line-height: 110%; font-weight: 600; color: var(--htag-dark-color);
+  margin-bottom: 16px;
+}
+.Htag_h2 {
+  font-size: clamp(24px, min(36/1920 * 100vw, 36px), 36px);
+  line-height: 120%; font-weight: 600; color: var(--htag-dark-color);
+  margin-bottom: 32px;
+}
+.Ptag { font-size: 18px; font-weight: 300; line-height: 150%; color: var(--dark-color); }
+
+/* Шапка */
+.Header_root { padding: 24px 0; border-bottom: 1px solid var(--light-gray-bg); margin-bottom: 60px; }
+.Header_inner { display: flex; justify-content: space-between; align-items: center; }
+.Logo_text { font-weight: 700; font-size: 24px; color: var(--dark-color); display: flex; align-items: center; gap: 12px; }
+.Logo_text span { color: var(--accent-color); }
+.Nav_links { display: flex; gap: 32px; }
+.Nav_links a { font-weight: 500; font-size: 16px; color: var(--dark-color); }
+.Nav_links a:hover, .Nav_links a.active { color: var(--accent-color); }
+.Button_back {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px; border-radius: 48px;
+  background: var(--accent-color); color: var(--dark-color);
+  font-weight: 600; font-size: 14px; border: none; cursor: pointer;
+  transition: .3s;
+}
+.Button_back:hover { background: linear-gradient(0deg, rgba(0,0,0,.08), rgba(0,0,0,.08)), #00db00; }
+
+/* Hero */
+.Hero { text-align: center; margin-bottom: 60px; }
+.Hero p { max-width: 700px; margin: 0 auto; }
+
+/* ===== ГОРИЗОНТАЛЬНЫЕ КАРТОЧКИ СОТРУДНИКОВ ===== */
+.TeamGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 80px;
+}
+.EmployeeCard {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 32px;
+  background: var(--white-color);
+  border: 1px solid var(--light-gray-bg);
+  border-radius: 32px;
+  padding: 32px;
+  transition: .4s;
+}
+.EmployeeCard:hover {
+  border-color: var(--accent-color);
+  box-shadow: 0 20px 40px rgba(0, 219, 0, 0.08);
+  transform: translateY(-4px);
+}
+
+/* Блок с фото (слева) */
+.EmployeePhoto {
+  flex-shrink: 0;
+  width: 180px;
+  height: 180px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--accent-color-opacity-10);
+  border: 3px solid var(--accent-color);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 56px; font-weight: 600; color: var(--accent-color);
+}
+.EmployeePhoto img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+/* Блок с информацией (справа) */
+.EmployeeInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.EmployeeHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.EmployeeName {
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 600;
+  color: var(--htag-dark-color);
+  line-height: 1.2;
+}
+.EmployeeRole {
+  font-size: 14px;
+  color: var(--accent-color);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 12px;
+  background: var(--accent-color-opacity-10);
+  border-radius: 20px;
+}
+.EmployeeBio {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--dark-color);
+  opacity: 0.8;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+/* Контакты сотрудника */
+.EmployeeContacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--light-gray-bg);
+}
+.EmployeeContacts a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  background: var(--light-gray-bg);
+  border-radius: 40px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--dark-color);
+  transition: .3s;
+}
+.EmployeeContacts a:hover {
+  background: var(--accent-color);
+  color: var(--dark-color);
+  transform: translateY(-2px);
+}
+.EmployeeContacts svg {
+  width: 16px; height: 16px;
+  stroke: currentColor; fill: none;
+  stroke-width: 2; flex-shrink: 0;
+}
+
+/* Блок общих контактов */
+.GeneralContacts {
+  background: var(--light-gray-bg);
+  border-radius: 40px;
+  padding: 48px;
+  margin-bottom: 80px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+}
+.ContactItem h4 {
+  font-size: 14px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--light-gray-color); margin-bottom: 12px; font-weight: 600;
+}
+.ContactItem a, .ContactItem p {
+  font-size: 18px; font-weight: 600; color: var(--htag-dark-color);
+  display: block;
+}
+.ContactItem a:hover { color: var(--accent-color); }
+
+/* Футер */
+.Footer_root {
+  background: var(--dark-color); color: var(--white-color);
+  padding: 60px 0; border-radius: 80px 80px 0 0; margin-top: 80px;
+}
+.Footer_copy {
+  text-align: center; font-size: 14px; opacity: 0.5;
+  padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Адаптив */
+@media (max-width: 800px) {
+  .Nav_links { display: none; }
+  .GeneralContacts { padding: 32px 24px; }
+  .EmployeeCard {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px;
+    gap: 20px;
+  }
+  .EmployeePhoto { width: 140px; height: 140px; font-size: 48px; }
+  .EmployeeHeader { justify-content: center; }
+  .EmployeeContacts { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<header class="Header_root">
+  <div class="container">
+    <div class="Header_inner">
+      <a href="secondver (1).html" class="Logo_text">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="#00DB00"/>
+          <path d="M10 22V10H14V18H22V22H10Z" fill="#1D2633"/>
+        </svg>
+        Школа <span>21</span>
+      </a>
+      <nav class="Nav_links">
+        <a href="secondver (1).html">О нас</a>
+        <a href="secondver (1).html">Программы</a>
+        <a href="secondver (1).html">Партнерам</a>
+        <a href="contacts.html" class="active">Контакты</a>
+      </nav>
+      <a href="secondver (1).html" class="Button_back">← На главную</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <section class="Hero">
+      <h1 class="Htag_h1">Наши контакты</h1>
+      <p class="Ptag">Свяжитесь с нами или найдите ответственного сотрудника по вашему вопросу. Мы всегда рады помочь!</p>
+    </section>
+
+
+    <!-- Сотрудники -->
+    <section class="TeamGrid">
+
+      <!-- Сотрудник 1 -->
+      <div class="EmployeeCard">
+        <div class="EmployeePhoto">ИИ</div>
+        <div class="EmployeeInfo">
+          <div class="EmployeeHeader">
+            <h3 class="EmployeeName">Иванов Иван Иванович</h3>
+            <span class="EmployeeRole">Директор школы</span>
+          </div>
+          <p class="EmployeeBio">
+            Отвечает за стратегическое развитие школы, выстраивает партнёрские отношения с ведущими IT-компаниями и образовательными фондами. Курирует запуск новых образовательных программ и развитие кампусов в регионах.
+          </p>
+          <div class="EmployeeContacts">
+            <a href="mailto:ivanov@21-school.ru">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              ivanov@21-school.ru
+            </a>
+            <a href="tel:+74951112233">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +7 (495) 111-22-33
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Сотрудник 2 -->
+      <div class="EmployeeCard">
+        <div class="EmployeePhoto">ПА</div>
+        <div class="EmployeeInfo">
+          <div class="EmployeeHeader">
+            <h3 class="EmployeeName">Петрова Анна Сергеевна</h3>
+            <span class="EmployeeRole">Руководитель стажировок</span>
+          </div>
+          <p class="EmployeeBio">
+            Помогает студентам подбирать стажировки под их навыки и карьерные цели, курирует оформление документов и сопровождает на протяжении всей стажировки. Работает с HR-отделами компаний-партнёров.
+          </p>
+          <div class="EmployeeContacts">
+            <a href="mailto:petrova@21-school.ru">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              petrova@21-school.ru
+            </a>
+            <a href="tel:+74951112244">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +7 (495) 111-22-44
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Сотрудник 3 -->
+      <div class="EmployeeCard">
+        <div class="EmployeePhoto">СП</div>
+        <div class="EmployeeInfo">
+          <div class="EmployeeHeader">
+            <h3 class="EmployeeName">Сидоров Пётр Алексеевич</h3>
+            <span class="EmployeeRole">Менеджер по грантам</span>
+          </div>
+          <p class="EmployeeBio">
+            Консультирует студентов и команды по участию в грантовых программах и конкурсах. Помогает с подготовкой заявок, сопроводительных писем и технических заданий для подачи на финансирование.
+          </p>
+          <div class="EmployeeContacts">
+            <a href="mailto:smirnov@21-school.ru">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              smirnov@21-school.ru
+            </a>
+            <a href="tel:+74951112255">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +7 (495) 111-22-55
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Сотрудник 4 -->
+      <div class="EmployeeCard">
+        <div class="EmployeePhoto">КМ</div>
+        <div class="EmployeeInfo">
+          <div class="EmployeeHeader">
+            <h3 class="EmployeeName">Козлова Мария Дмитриевна</h3>
+            <span class="EmployeeRole">HR-специалист</span>
+          </div>
+          <p class="EmployeeBio">
+            Помогает выпускникам и студентам с трудоустройством: проводит карьерные консультации, помогает составлять резюме и готовиться к техническим собеседованиям с компаниями-партнёрами.
+          </p>
+          <div class="EmployeeContacts">
+            <a href="mailto:kozlova@21-school.ru">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              kozlova@21-school.ru
+            </a>
+            <a href="tel:+74951112266">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +7 (495) 111-22-66
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Сотрудник 5 -->
+      <div class="EmployeeCard">
+        <div class="EmployeePhoto">ВА</div>
+        <div class="EmployeeInfo">
+          <div class="EmployeeHeader">
+            <h3 class="EmployeeName">Волков Алексей Викторович</h3>
+            <span class="EmployeeRole">Технический директор</span>
+          </div>
+          <p class="EmployeeBio">
+            Отвечает за IT-инфраструктуру школы, образовательную платформу и внутренние сервисы. Курирует разработку учебных проектов, хакатонов и технических мероприятий для студентов.
+          </p>
+          <div class="EmployeeContacts">
+            <a href="mailto:volkov@21-school.ru">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              volkov@21-school.ru
+            </a>
+            <a href="tel:+74951112277">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +7 (495) 111-22-77
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Сотрудник 6 -->
+      <div class="EmployeeCard">
+        <div class="EmployeePhoto">НЕ</div>
+        <div class="EmployeeInfo">
+          <div class="EmployeeHeader">
+            <h3 class="EmployeeName">Новикова Елена Павловна</h3>
+            <span class="EmployeeRole">Координатор мероприятий</span>
+          </div>
+          <p class="EmployeeBio">
+            Организует хакатоны, конференции, митапы и IT-встречи школы. Работает со спикерами, площадками и участниками, обеспечивает бесперебойное проведение как онлайн-, так и офлайн-событий.
+          </p>
+          <div class="EmployeeContacts">
+            <a href="mailto:novikova@21-school.ru">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              novikova@21-school.ru
+            </a>
+            <a href="tel:+74951112288">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +7 (495) 111-22-88
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+</main>
+
+<footer class="Footer_root">
+  <div class="container">
+    <div class="Footer_copy">©️ «Школа 21», 2026. Все права защищены.</div>
+  </div>
+</footer>
+
+</body>
+</html>
